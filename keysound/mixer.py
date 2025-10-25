@@ -8,7 +8,7 @@ import numpy as np
 from .audio import AudioClip
 
 
-@dataclass
+@dataclass(eq=False)
 class PlaybackInstance:
     clip: AudioClip
     volume: float
@@ -53,7 +53,8 @@ class Mixer:
                 if instance.position >= clip_frames:
                     finished.append(instance)
             if finished:
-                self._instances = [i for i in self._instances if i not in finished]
+                finished_ids = {id(i) for i in finished}
+                self._instances = [i for i in self._instances if id(i) not in finished_ids]
         np.clip(block, -1.0, 1.0, out=block)
         return block
 
