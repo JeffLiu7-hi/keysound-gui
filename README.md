@@ -106,4 +106,4 @@ python -m keysound --dir audio/piano --list-keys
 
 ## License
 
-MIT
+This repository is licensed under the MIT License
